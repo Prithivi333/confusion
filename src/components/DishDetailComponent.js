@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Card, CardBody, CardImg, CardText, CardTitle } from "reactstrap";
-import Menu from "./MenuComponent";
 
 class DishDetail extends Component{
     constructor(props){
@@ -20,7 +19,7 @@ class DishDetail extends Component{
                         {  new Intl.DateTimeFormat('en-US', { 
                             year: 'numeric', 
                             month: 'long', 
-                            day: '2-digit' }).format(new Date(c.date))}
+                            day: '2-digit' }).format(new Date(Date.parse(c.date)))}
                         </p>
                         </li>
                     </div>
