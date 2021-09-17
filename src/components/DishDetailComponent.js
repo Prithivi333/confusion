@@ -6,8 +6,8 @@ import { Card, CardBody, CardImg, CardText, CardTitle } from "reactstrap";
         if(dish!=null && dish.comments!=null){
             const cmnt=dish.comments.map(c => {
                 return(
-                    <ul className="list-unstyled">
-                        <li className="list-item" key={c.id}>{c.comment}
+                    <ul className="list-unstyled" key={c.id}>
+                        <li className="list-item">{c.comment}
                         <p>--{c.author} , 
                         {  new Intl.DateTimeFormat('en-US', { 
                             year: 'numeric', 
