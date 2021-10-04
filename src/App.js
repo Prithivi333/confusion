@@ -3,7 +3,7 @@ import './App.css';
 import React ,{Component} from 'react';
 import {BrowserRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
-import {ConfigureStore} from './redux/configureStore';
+import {ConfigureStore} from './redux/ConfigureStore';
 
 const store=ConfigureStore();
 
@@ -14,7 +14,7 @@ class App extends Component {
   return (
     <Provider store={store}>
     <BrowserRouter>
-    <div>
+    <div className="App">
       <Main />
     </div>
     </BrowserRouter>
