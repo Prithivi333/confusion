@@ -176,7 +176,6 @@ class Contact extends Component {
                                         className="form-control">
                                         <option>Tel.</option>
                                         <option>Email</option>
-                                        onChange={this.handleInputChange}
                                     </Control.select>
                                 </Col>
                             </Row>
