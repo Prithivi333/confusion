@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from "./LoadingComponent";
 import { baseUrl } from "../shared/baseUrl";
+import {FadeTransform,Fade,Stagger} from 'react-animation-components';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || val.length <= 15;
@@ -87,15 +88,19 @@ function RenderComments({ comments, postComment, dishId }) {
         const cmnt = comments.map(c => {
             return (
                 <ul className="list-unstyled" key={c.id}>
-                    <li className="list-item">{c.comment}
-                        <p>--{c.author} ,
-                            {new Intl.DateTimeFormat('en-US', {
-                                year: 'numeric',
-                                month: 'long',
-                                day: '2-digit'
-                            }).format(new Date(Date.parse(c.date)))}
-                        </p>
-                    </li>
+                    <Stagger in>
+                        <Fade in>
+                            <li className="list-item">{c.comment}
+                                <p>--{c.author} ,
+                                    {new Intl.DateTimeFormat('en-US', {
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: '2-digit'
+                                    }).format(new Date(Date.parse(c.date)))}
+                                </p>
+                            </li>
+                        </Fade>
+                    </Stagger>
                 </ul>
             );
         });
@@ -117,13 +122,18 @@ function RenderComments({ comments, postComment, dishId }) {
 function RenderDish({ dish }) {
     if (dish != null) {
         return (
-            <Card key={dish.id}>
-                <CardImg width="100%" src={baseUrl+dish.image} alt={dish.name} />
-                <CardBody>
-                    <CardTitle>{dish.name}</CardTitle>
-                    <CardText>{dish.description}</CardText>
-                </CardBody>
-            </Card>
+            <FadeTransform in
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>
+                <Card key={dish.id}>
+                    <CardImg width="100%" src={baseUrl + dish.image} alt={dish.name} />
+                    <CardBody>
+                        <CardTitle>{dish.name}</CardTitle>
+                        <CardText>{dish.description}</CardText>
+                    </CardBody>
+                </Card>
+            </FadeTransform>
         );
     }
     else {
