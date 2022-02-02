@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Breadcrumb, BreadcrumbItem, Button, Card, CardBody, CardImg, CardText, CardTitle, Col, Label, Modal, ModalBody, ModalHeader, Row } from "reactstrap";
+import { Breadcrumb, BreadcrumbItem, Button, Card, CardBody, CardImg, CardImgOverlay, CardText, CardTitle, Col, Label, Modal, ModalBody, ModalHeader, Row } from "reactstrap";
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from "./LoadingComponent";
 import { baseUrl } from "../shared/baseUrl";
-import {FadeTransform,Fade,Stagger} from 'react-animation-components';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || val.length <= 15;
@@ -119,7 +119,7 @@ function RenderComments({ comments, postComment, dishId }) {
     }
 }
 
-function RenderDish({ dish }) {
+function RenderDish({ dish, favorite, postFavorite }) {
     if (dish != null) {
         return (
             <FadeTransform in
@@ -128,6 +128,15 @@ function RenderDish({ dish }) {
                 }}>
                 <Card key={dish.id}>
                     <CardImg width="100%" src={baseUrl + dish.image} alt={dish.name} />
+                    <CardImgOverlay>
+                        <Button outline color="primary" onClick={() => favorite ? console.log('Already favorite') : postFavorite(dish._id)}>
+                            {favorite ?
+                                <span className="fa fa-heart"></span>
+                                :
+                                <span className="fa fa-heart-o"></span>
+                            }
+                        </Button>
+                    </CardImgOverlay>
                     <CardBody>
                         <CardTitle>{dish.name}</CardTitle>
                         <CardText>{dish.description}</CardText>
@@ -144,8 +153,8 @@ function RenderDish({ dish }) {
 }
 
 const DishDetail = (props) => {
-    if(props.isLoading){
-        return(
+    if (props.isLoading) {
+        return (
             <div className="container">
                 <div className="row">
                     <Loading />
@@ -153,8 +162,8 @@ const DishDetail = (props) => {
             </div>
         );
     }
-    else if(props.errMess){
-        return(
+    else if (props.errMess) {
+        return (
             <div className="container">
                 <div className="row">
                     <h4>{props.errMess}</h4>
